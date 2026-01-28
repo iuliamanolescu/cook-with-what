@@ -77,11 +77,13 @@ export default function Home() {
     if (!allMealsMap || allMealsMap.size === 0) return new Map();
     if (selectedCategory === "All") return allMealsMap;
 
-    const filteredMeals = new Map();
-    for (const [id, filteredMeals] of allMealsMap.entries()) {
-      if (filteredMeals.category === selectedCategory) filteredMeals.set(id, meal);
-    }
-    return filteredMeals;
+   const filteredMeals = new Map();
+for (const [id, meal] of allMealsMap.entries()) {
+  if (meal.category === selectedCategory) {
+    filteredMeals.set(id, meal);
+  }
+}
+return filteredMeals;
   }, [allMealsMap, selectedCategory]);
 
   const results = useMemo(() => {
