@@ -1,0 +1,59 @@
+@import url('https://fonts.googleapis.com/css2?family=DynaPuff:wght@400..700&family=Gaegu:wght@300;400;700&display=swap');
+
+a {
+  font-weight: 500;
+  color: #7C6A5E;
+  text-decoration: inherit;
+}
+a:hover {
+  color: #7C6A5E;
+}
+
+html, body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+
+  display: block;
+}
+
+h1 {
+  font-size: 3.2em;
+  line-height: 1.1;
+}
+
+button {
+  border-radius: 8px;
+  border: 1px solid transparent;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  background-color: #1a1a1a;
+  cursor: pointer;
+  transition: border-color 0.25s;
+}
+button:hover {
+  border-color: #7C6A5E;
+}
+button:focus,
+button:focus-visible {
+  outline: 4px auto -webkit-focus-ring-color;
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    color: #213547;
+    background-color: #ffffff;
+  }
+  a:hover {
+    color: #7C6A5E;
+  }
+  button {
+    background-color: #f9f9f9;
+  }
+}

@@ -1,0 +1,27 @@
+:root {
+  --bg: #EDDDCD;
+  --text-seconday: #FFFBF4;
+  --border: #A09086;
+  --text: #7C6A5E;
+
+  font-family: Gaegu, sans-serif;
+  line-height:1.5;
+  font-weight: 400;
+  font-size: large;
+}
+
+.home-sidebar {
+  background-color: #EDDDCD;
+  border-radius: 20px;
+  border: 5px solid #c0b1a8;
+}
+
+input {
+  accent-color: #7C6A5E;
+}
+
+button {
+  background-color: #7C6A5E;
+  color: #ffffff;
+  margin: 5px;
+}

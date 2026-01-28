@@ -1,0 +1,74 @@
+.ingredient-picker {
+  text-align: left;
+}
+
+.ingredient-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.ingredient-row label {
+  white-space: nowrap;
+}
+
+.ingredient-row input {
+  flex: 1;
+  min-width: 0;
+  padding: 10px;
+}
+
+.ingredient-suggestions {
+  border: 1px solid #eee;
+  border-radius: 10px;
+  margin-top: 8px;
+  overflow: hidden;
+}
+
+.ingredient-suggestion-btn {
+  width: 100%;
+  text-align: left;
+  padding: 10px;
+  border: none;
+  background: white;
+  cursor: pointer;
+}
+
+.ingredient-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.chip {
+  border: 1px solid #eee;
+  border-radius: 999px;
+  padding: 6px 10px;
+  display: inline-flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.chip-remove {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+}
+
+@media (max-width: 768px) {
+  .ingredient-row {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+  }
+
+  .ingredient-row input {
+    width: 100% !important;
+    margin-top: 6px;
+    box-sizing: border-box;
+  }
+}
+
+.ingredient-row input {
+  width: 53%;
+}
