@@ -8,12 +8,12 @@ async function fetchJson(url) {
 
 export async function listIngredients() {
   const data = await fetchJson(`${BASE}/list.php?i=list`);
-  return data.meals?.map((x) => x.strIngredient).filter(Boolean) ?? [];
+  return data.meals?.map((meal) => meal.strIngredient).filter(Boolean) ?? [];
 }
 
 export async function listCategories() {
   const data = await fetchJson(`${BASE}/list.php?c=list`);
-  return data.meals?.map((x) => x.strCategory).filter(Boolean) ?? [];
+  return data.meals?.map((meal) => meal.strCategory).filter(Boolean) ?? [];
 }
 
 export async function filterByCategory(category) {
