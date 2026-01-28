@@ -77,16 +77,16 @@ export default function Home() {
     if (!allMealsMap || allMealsMap.size === 0) return new Map();
     if (selectedCategory === "All") return allMealsMap;
 
-    const m = new Map();
-    for (const [id, meal] of allMealsMap.entries()) {
-      if (meal.category === selectedCategory) m.set(id, meal);
+    const filteredMeals = new Map();
+    for (const [id, filteredMeals] of allMealsMap.entries()) {
+      if (filteredMeals.category === selectedCategory) filteredMeals.set(id, meal);
     }
-    return m;
+    return filteredMeals;
   }, [allMealsMap, selectedCategory]);
 
   const results = useMemo(() => {
     return computed
-      .filter((x) => x.missing.length <= allowedMissing)
+      .filter((result) => result.missing.length <= allowedMissing)
       .sort((a, b) => {
         if (a.missing.length !== b.missing.length)
           return a.missing.length - b.missing.length;
@@ -122,8 +122,8 @@ export default function Home() {
 
         const rawLookup = localStorage.getItem(LS_LOOKUP_CACHE);
         if (rawLookup) {
-          const obj = safeJsonParse(rawLookup, {});
-          for (const [id, meal] of Object.entries(obj)) {
+          const lookupCacheObject = safeJsonParse(rawLookup, {});
+          for (const [id, meal] of Object.entries(lookupCacheObject)) {
             lookupCacheRef.current.set(id, meal);
           }
         }
@@ -140,18 +140,18 @@ export default function Home() {
 
         const rawLight = localStorage.getItem(LS_LIGHT_ALL);
         if (rawLight) {
-          const obj = safeJsonParse(rawLight, null);
-          if (obj && typeof obj === "object") {
-            const m = new Map();
-            for (const [id, meal] of Object.entries(obj)) {
-              m.set(id, meal);
-            }
-            setAllMealsMap(m);
+          const cachedMealsObject = safeJsonParse(rawLight, null);
+          if (cachedMealsObject && typeof cachedMealsObject === "object") {
+           const mealsMap = new Map();
+for (const [id, meal] of Object.entries(cachedMealsObject)) {
+  mealsMap.set(id, meal);
+}
+setAllMealsMap(mealsMap);
             return;
           }
         }
 
-        const lists = await Promise.all(cats.map((c) => filterByCategory(c)));
+        const lists = await Promise.all(cats.map((category) => filterByCategory(category)));
 
         const all = new Map();
         for (let i = 0; i < cats.length; i++) {
@@ -206,8 +206,8 @@ const hitCount = new Map();
 
 for (const list of lists) {
   if (!list) continue;
-  for (const m of list) {
-    hitCount.set(m.idMeal, (hitCount.get(m.idMeal) ?? 0) + 1);
+  for (const meal of list) {
+    hitCount.set(meal.idMeal, (hitCount.get(meal.idMeal) ?? 0) + 1);
   }
 }
 
@@ -243,13 +243,13 @@ const trimmed = candidates.slice(0, MAX_CANDIDATES);
             .filter(Boolean);
 
           if (ignoreStaples) {
-            recipeIngs = recipeIngs.filter((x) => !staplesSet.has(x));
+            recipeIngs = recipeIngs.filter((result) => !staplesSet.has(result));
           }
 
           recipeIngs = Array.from(new Set(recipeIngs));
 
-          const missing = recipeIngs.filter((x) => !pantrySet.has(x));
-          const usedCount = recipeIngs.filter((x) => pantrySet.has(x)).length;
+          const missing = recipeIngs.filter((result) => !pantrySet.has(result));
+          const usedCount = recipeIngs.filter((result) => pantrySet.has(result)).length;
 
           return {
             light,
@@ -265,7 +265,7 @@ const trimmed = candidates.slice(0, MAX_CANDIDATES);
 
         const clean = computedList
           .filter(Boolean)
-          .filter((x) => x.usedCount >= minUsed)
+          .filter((result) => result.usedCount >= minUsed)
           .sort((a, b) => Number(a.light.idMeal) - Number(b.light.idMeal));
 
         setComputed(clean);
@@ -301,9 +301,9 @@ const trimmed = candidates.slice(0, MAX_CANDIDATES);
             onChange={(e) => setSelectedCategory(e.target.value)}
             style={{ width: "100%", padding: 10, marginTop: 6 }}
           >
-            {categories.map((c) => (
-              <option key={c} value={c}>
-                {c}
+            {categories.map((category) => (
+              <option key={category} value={category}>
+                {category}
               </option>
             ))}
           </select>
@@ -312,10 +312,10 @@ const trimmed = candidates.slice(0, MAX_CANDIDATES);
         <IngredientPicker
           allIngredients={allIngredients}
           selected={selected}
-          onAdd={(x) =>
-            setSelected((prev) => (prev.includes(x) ? prev : [...prev, x]))
+          onAdd={(result) =>
+            setSelected((prev) => (prev.includes(result) ? prev : [...prev, result]))
           }
-          onRemove={(x) => setSelected((prev) => prev.filter((p) => p !== x))}
+          onRemove={(result) => setSelected((prev) => prev.filter((p) => p !== result))}
         />
 
         <div style={{ marginTop: 12 }}>
